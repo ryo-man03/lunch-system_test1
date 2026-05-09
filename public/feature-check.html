@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>機能確認チェックリスト</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f3f4f6; max-width: 1200px; margin: 0 auto; }
+        h1 { color: #1f2937; }
+        .section { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .section h2 { color: #3b82f6; margin-top: 0; border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
+        .feature { display: flex; align-items: center; padding: 12px; margin: 8px 0; background: #f9fafb; border-radius: 6px; }
+        .feature.implemented { background: #d1fae5; }
+        .feature.partial { background: #fef3c7; }
+        .feature.missing { background: #fee2e2; }
+        .status { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-weight: bold; }
+        .status.ok { background: #10b981; color: white; }
+        .status.warn { background: #f59e0b; color: white; }
+        .status.no { background: #ef4444; color: white; }
+        .feature-content { flex: 1; }
+        .feature-title { font-weight: bold; color: #1f2937; margin-bottom: 4px; }
+        .feature-desc { color: #6b7280; font-size: 14px; }
+        .test-link { margin-top: 16px; padding: 12px; background: #eff6ff; border-radius: 6px; }
+        .test-link a { color: #3b82f6; text-decoration: none; font-weight: bold; }
+        .test-link a:hover { text-decoration: underline; }
+        .summary { background: #1f2937; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+        .summary-stat { display: inline-block; margin: 0 20px; }
+        .summary-num { font-size: 2rem; font-weight: bold; }
+        .summary-label { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <h1>🍱 弁当予約システム 機能確認チェックリスト</h1>
+    
+    <div class="summary">
+        <div class="summary-stat">
+            <div class="summary-num" id="total-features">0</div>
+            <div class="summary-label">総機能数</div>
+        </div>
+        <div class="summary-stat">
+            <div class="summary-num" id="implemented-count" style="color: #10b981;">0</div>
+            <div class="summary-label">実装済み</div>
+        </div>
+        <div class="summary-stat">
+            <div class="summary-num" id="partial-count" style="color: #f59e0b;">0</div>
+            <div class="summary-label">部分実装</div>
+        </div>
+        <div class="summary-stat">
+            <div class="summary-num" id="missing-count" style="color: #ef4444;">0</div>
+            <div class="summary-label">未実装</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>👨‍🎓 ユーザー（学生）機能</h2>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">1. 注文フロー改善</div>
+                <div class="feature-desc">受取日選択 → メニュー選択の順番に変更済み</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">2. カレンダー表示拡大</div>
+                <div class="feature-desc">受取日選択のカレンダーを2.5倍に拡大</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">3. メニューフィルター</div>
+                <div class="feature-desc">値段順（高い/低い）、新着順、店舗ごとの並び替え機能</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">4. カート機能</div>
+                <div class="feature-desc">メニュー追加、数量変更（+/-）、削除、合計金額表示</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">5. 受付番号発行</div>
+                <div class="feature-desc">注文確定後に受付番号（R-XXXX）を発行、コピー機能あり</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">6. スクリーンショット促進</div>
+                <div class="feature-desc">受付番号表示画面に大きな文字で「スクショしてください」を表示</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">7. クーポン機能</div>
+                <div class="feature-desc">クーポンコード入力で割引適用</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">8. 注文キャンセル</div>
+                <div class="feature-desc">受付番号で検索してキャンセル（条件: 注文後30分以内、未決済のみ）</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">9. メニュー画像表示</div>
+                <div class="feature-desc">各メニューの画像、説明文、価格、アレルゲン情報を表示</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>👨‍💼 管理者機能</h2>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">1. 店舗管理（追加・編集・削除）</div>
+                <div class="feature-desc">店舗情報の作成、編集、削除、有効/無効切り替え → データベースに保存</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">2. メニュー管理（追加・編集・削除）</div>
+                <div class="feature-desc">メニューの作成、編集、削除、画像アップロード → データベースに保存</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">3. 画像アップロード機能</div>
+                <div class="feature-desc">メニュー・店舗の画像をアップロード、自動リサイズ（最大800px）</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">4. 注文内容の変更・削除</div>
+                <div class="feature-desc">受付番号から注文を検索し、内容変更または削除が可能</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">5. 決済処理</div>
+                <div class="feature-desc">受付番号で検索し、決済方法を選択（現金、PayPay、LINE Pay等6種類）</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">6. 注文番号発行</div>
+                <div class="feature-desc">決済完了後に注文番号（O-XXXX）を発行</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">7. 受取管理</div>
+                <div class="feature-desc">注文番号で検索し、受取完了処理</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">8. ダッシュボード統計</div>
+                <div class="feature-desc">今日の注文数、未決済数、売上、人気メニューを表示</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">9. ログ管理</div>
+                <div class="feature-desc">注文、決済、受取などのアクティビティログを記録・閲覧</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">10. 営業設定</div>
+                <div class="feature-desc">営業日、受取時間、注文締切時間の設定</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">11. システムメッセージ</div>
+                <div class="feature-desc">ユーザー画面にお知らせを表示（info/warning/error）</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>💾 データ・システム機能</h2>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">1. データベース永続化</div>
+                <div class="feature-desc">すべてのデータをdatabase.jsonに保存、サーバー再起動後も保持</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">2. 自動バックアップ</div>
+                <div class="feature-desc">日次でデータベースをバックアップ（30日間保持）</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">3. 店舗データの参照</div>
+                <div class="feature-desc">追加した店舗がデータベースに保存され、システム全体で参照可能</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">4. メニューデータの参照</div>
+                <div class="feature-desc">追加したメニューがデータベースに保存され、注文画面で表示</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">5. API通信</div>
+                <div class="feature-desc">RESTful APIでフロントエンドとバックエンドが通信</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">6. エラーハンドリング</div>
+                <div class="feature-desc">エラーログの記録と表示</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔐 セキュリティ・認証</h2>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">1. 管理者ログイン</div>
+                <div class="feature-desc">メールアドレスとパスワードでログイン、セッション管理</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">2. 管理者承認システム</div>
+                <div class="feature-desc">新規管理者登録後、既存管理者による承認が必要</div>
+            </div>
+        </div>
+        
+        <div class="feature implemented">
+            <div class="status ok">✓</div>
+            <div class="feature-content">
+                <div class="feature-title">3. パスワードハッシュ化</div>
+                <div class="feature-desc">SHA-256でパスワードをハッシュ化して保存</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-link">
+        <strong>🧪 テストページ:</strong><br>
+        <a href="/test-api.html">API動作テスト</a> |
+        <a href="/index.html">ユーザー注文画面</a> |
+        <a href="/debug.html">管理画面</a>
+    </div>
+
+    <script>
+        // 機能のカウント
+        const implemented = document.querySelectorAll('.feature.implemented').length;
+        const partial = document.querySelectorAll('.feature.partial').length;
+        const missing = document.querySelectorAll('.feature.missing').length;
+        const total = implemented + partial + missing;
+
+        document.getElementById('total-features').textContent = total;
+        document.getElementById('implemented-count').textContent = implemented;
+        document.getElementById('partial-count').textContent = partial;
+        document.getElementById('missing-count').textContent = missing;
+    </script>
+</body>
+</html>

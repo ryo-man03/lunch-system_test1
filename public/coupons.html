@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クーポン管理 - 弁当予約システム</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .coupon-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .coupon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #FF9800;
+        }
+        
+        .coupon-header h1 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #FF9800;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #F57C00;
+        }
+        
+        .btn-secondary {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #0b7dda;
+        }
+        
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .coupon-card {
+            background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coupon-card::before {
+            content: '🎟️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 120px;
+            opacity: 0.1;
+        }
+        
+        .coupon-code {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .coupon-description {
+            font-size: 14px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .coupon-details {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .coupon-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .coupon-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            background-color: rgba(255,255,255,0.3);
+            margin-top: 10px;
+        }
+        
+        .coupon-inactive {
+            background: linear-gradient(135deg, #9E9E9E 0%, #757575 100%);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="coupon-container">
+        <div class="coupon-header">
+            <h1>🎟️ クーポン管理</h1>
+            <div>
+                <button class="btn btn-secondary" onclick="window.location.href='/debug.html'">管理画面に戻る</button>
+                <button class="btn btn-primary" onclick="showAddModal()">➕ クーポン作成</button>
+            </div>
+        </div>
+        
+        <div id="alertContainer"></div>
+        
+        <div id="couponGrid" class="coupon-grid">
+            <div class="empty-state">
+                <div class="empty-state-icon">🎫</div>
+                <p>読み込み中...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- クーポン作成モーダル -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddModal()">&times;</span>
+            <h2>クーポン作成</h2>
+            <form id="couponForm" onsubmit="saveCoupon(event)">
+                <div class="form-group">
+                    <label>クーポンコード * <small>(例: FIRST10, STUDENT5)</small></label>
+                    <input type="text" id="code" required maxlength="20" style="text-transform: uppercase;">
+                </div>
+                
+                <div class="form-group">
+                    <label>説明</label>
+                    <textarea id="description" rows="2" placeholder="初回注文10%オフ"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>割引タイプ *</label>
+                        <select id="type" required>
+                            <option value="percentage">パーセント割引（%）</option>
+                            <option value="fixed">固定金額割引（円）</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>割引値 *</label>
+                        <input type="number" id="value" min="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>有効開始日</label>
+                        <input type="date" id="validFrom">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>有効終了日</label>
+                        <input type="date" id="validUntil">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>使用上限回数</label>
+                    <input type="number" id="maxUses" min="1" value="100">
+                </div>
+                
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">作成</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let coupons = [];
+        
+        // 初期化
+        async function init() {
+            await loadCoupons();
+            
+            // デフォルトの日付を設定
+            const today = new Date().toISOString().split('T')[0];
+            const nextYear = new Date();
+            nextYear.setFullYear(nextYear.getFullYear() + 1);
+            const nextYearStr = nextYear.toISOString().split('T')[0];
+            
+            document.getElementById('validFrom').value = today;
+            document.getElementById('validUntil').value = nextYearStr;
+        }
+        
+        // クーポン一覧取得
+        async function loadCoupons() {
+            try {
+                const response = await fetch('/api/coupons');
+                const data = await response.json();
+                
+                if (data.success) {
+                    coupons = data.coupons;
+                    displayCoupons();
+                }
+            } catch (error) {
+                console.error('クーポン取得エラー:', error);
+                showAlert('クーポン取得に失敗しました', 'error');
+            }
+        }
+        
+        // クーポン一覧表示
+        function displayCoupons() {
+            const grid = document.getElementById('couponGrid');
+            
+            if (coupons.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎫</div>
+                        <p>クーポンがありません</p>
+                        <p>「クーポン作成」ボタンから新しいクーポンを作成できます</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = '';
+            
+            coupons.forEach(coupon => {
+                const card = document.createElement('div');
+                card.className = `coupon-card ${coupon.active ? '' : 'coupon-inactive'}`;
+                
+                const valueText = coupon.type === 'percentage' 
+                    ? `${coupon.value}% OFF` 
+                    : `¥${coupon.value} OFF`;
+                
+                const statusText = coupon.active ? '有効' : '無効';
+                const usageText = `${coupon.usedCount}/${coupon.maxUses}回使用`;
+                
+                card.innerHTML = `
+                    <div class="coupon-code">${coupon.code}</div>
+                    <div class="coupon-description">${coupon.description || 'クーポン'}</div>
+                    <div class="coupon-value">${valueText}</div>
+                    <div class="coupon-details">
+                        📅 ${coupon.validFrom} 〜 ${coupon.validUntil}<br>
+                        📊 ${usageText}
+                    </div>
+                    <div class="coupon-status">${statusText}</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // クーポン作成モーダル表示
+        function showAddModal() {
+            document.getElementById('couponForm').reset();
+            
+            const today = new Date().toISOString().split('T')[0];
+            const nextYear = new Date();
+            nextYear.setFullYear(nextYear.getFullYear() + 1);
+            const nextYearStr = nextYear.toISOString().split('T')[0];
+            
+            document.getElementById('validFrom').value = today;
+            document.getElementById('validUntil').value = nextYearStr;
+            document.getElementById('maxUses').value = 100;
+            
+            document.getElementById('addModal').style.display = 'block';
+        }
+        
+        // モーダルを閉じる
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+        
+        // クーポン保存
+        async function saveCoupon(event) {
+            event.preventDefault();
+            
+            const code = document.getElementById('code').value.toUpperCase();
+            const description = document.getElementById('description').value;
+            const type = document.getElementById('type').value;
+            const value = parseInt(document.getElementById('value').value);
+            const validFrom = document.getElementById('validFrom').value;
+            const validUntil = document.getElementById('validUntil').value;
+            const maxUses = parseInt(document.getElementById('maxUses').value);
+            
+            try {
+                const response = await fetch('/api/coupons', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        code, 
+                        description, 
+                        type, 
+                        value, 
+                        validFrom, 
+                        validUntil, 
+                        maxUses 
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('クーポンを作成しました', 'success');
+                    closeAddModal();
+                    await loadCoupons();
+                } else {
+                    showAlert(data.error || 'クーポン作成に失敗しました', 'error');
+                }
+            } catch (error) {
+                console.error('クーポン保存エラー:', error);
+                showAlert('クーポン保存に失敗しました', 'error');
+            }
+        }
+        
+        // アラート表示
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+            
+            alertContainer.innerHTML = `
+                <div class="alert ${alertClass}">
+                    ${message}
+                </div>
+            `;
+            
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+        
+        // モーダル外クリックで閉じる
+        window.onclick = function(event) {
+            const modal = document.getElementById('addModal');
+            if (event.target === modal) {
+                closeAddModal();
+            }
+        }
+        
+        // 初期化実行
+        init();
+    </script>
+</body>
+</html>

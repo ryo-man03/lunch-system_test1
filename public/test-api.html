@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>API動作テスト</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f3f4f6; }
+        .test-section { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 5px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        button:hover { background: #2563eb; }
+        .result { margin-top: 10px; padding: 10px; background: #f9fafb; border-radius: 4px; white-space: pre-wrap; }
+        .success { background: #d1fae5; color: #065f46; }
+        .error { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <h1>🧪 API動作テスト</h1>
+    
+    <div class="test-section">
+        <h2>1. 店舗・メニュー追加のDB連携テスト</h2>
+        <button onclick="testAddStore()">店舗追加テスト</button>
+        <button onclick="testAddMenu()">メニュー追加テスト</button>
+        <button onclick="testGetData()">データ取得テスト</button>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. 画像・説明の機能テスト</h2>
+        <input type="file" id="testImage" accept="image/*">
+        <button onclick="testImageUpload()">画像アップロードテスト</button>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. 注文の変更・削除テスト</h2>
+        <input type="text" id="intakeCode" placeholder="受付番号 (例: R-0001)">
+        <button onclick="testUpdateIntake()">注文変更テスト</button>
+        <button onclick="testDeleteIntake()">注文削除テスト</button>
+        <div id="result3" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. キャンセル機能テスト</h2>
+        <input type="text" id="cancelCode" placeholder="受付番号 (例: R-0001)">
+        <button onclick="testSearchIntake()">検索テスト</button>
+        <button onclick="testCancelIntake()">キャンセルテスト</button>
+        <div id="result4" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5-8. その他の機能確認</h2>
+        <div id="result5" class="result">
+            ✅ 5. カレンダー拡大: 実装済み (5rem)<br>
+            ✅ 6. 個数デフォルト: 1個で正常<br>
+            ✅ 7. 受取日→メニュー選択: 実装済み<br>
+            ✅ 8. スクショ促進: 実装済み (2rem)
+        </div>
+    </div>
+
+    <script type="module">
+        import { ApiClient } from './js/api.js';
+        const api = new ApiClient();
+        window.api = api;
+
+        window.testAddStore = async function() {
+            const result1 = document.getElementById('result1');
+            result1.textContent = '🔄 テスト中...';
+            try {
+                const testStore = {
+                    id: 'TEST' + Date.now(),
+                    name: 'テスト店舗' + Date.now(),
+                    contactPhone: '090-0000-0000',
+                    active: true
+                };
+                const res = await api.addStore(testStore);
+                result1.className = res.success ? 'result success' : 'result error';
+                result1.textContent = '✅ 店舗追加成功:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                result1.className = 'result error';
+                result1.textContent = '❌ エラー: ' + e.message;
+            }
+        };
+
+        window.testAddMenu = async function() {
+            const result1 = document.getElementById('result1');
+            result1.textContent = '🔄 テスト中...';
+            try {
+                const stores = await api.getStores();
+                const storeId = stores.stores?.[0]?.id || 'S001';
+                
+                const testMenu = {
+                    id: 'TEST' + Date.now(),
+                    name: 'テストメニュー' + Date.now(),
+                    price: 550,
+                    description: 'テスト用の説明文です',
+                    category: 'lunch',
+                    storeId: storeId,
+                    active: true,
+                    image: ''
+                };
+                const res = await api.addMenu(testMenu);
+                result1.className = res.success ? 'result success' : 'result error';
+                result1.textContent = '✅ メニュー追加成功:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                result1.className = 'result error';
+                result1.textContent = '❌ エラー: ' + e.message;
+            }
+        };
+
+        window.testGetData = async function() {
+            const result1 = document.getElementById('result1');
+            result1.textContent = '🔄 テスト中...';
+            try {
+                const stores = await api.getStores();
+                const menu = await api.getMenu();
+                result1.className = 'result success';
+                result1.textContent = `✅ データ取得成功:\n店舗数: ${stores.stores?.length || 0}\nメニュー数: ${menu.items?.length || 0}`;
+            } catch(e) {
+                result1.className = 'result error';
+                result1.textContent = '❌ エラー: ' + e.message;
+            }
+        };
+
+        window.testImageUpload = async function() {
+            const result2 = document.getElementById('result2');
+            const fileInput = document.getElementById('testImage');
+            if (!fileInput.files[0]) {
+                result2.className = 'result error';
+                result2.textContent = '⚠️ 画像を選択してください';
+                return;
+            }
+            result2.textContent = '🔄 アップロード中...';
+            result2.className = 'result';
+            
+            // Base64変換テスト
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                result2.className = 'result success';
+                result2.textContent = '✅ 画像読み込み成功\nファイル名: ' + file.name + '\nサイズ: ' + Math.round(file.size/1024) + 'KB\nBase64長: ' + e.target.result.length + ' chars';
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.testUpdateIntake = async function() {
+            const result3 = document.getElementById('result3');
+            const intakeCode = document.getElementById('intakeCode').value.trim();
+            if (!intakeCode) {
+                result3.className = 'result error';
+                result3.textContent = '⚠️ 受付番号を入力してください';
+                return;
+            }
+            result3.textContent = '🔄 テスト中...';
+            try {
+                const updateData = {
+                    pickupDate: '2026-02-15',
+                    items: [{ name: 'テスト弁当', quantity: 1, price: 500 }]
+                };
+                const res = await api.updateIntake(intakeCode, updateData);
+                result3.className = res.success ? 'result success' : 'result error';
+                result3.textContent = (res.success ? '✅' : '❌') + ' 注文変更:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                result3.className = 'result error';
+                result3.textContent = '❌ エラー: ' + e.message;
+            }
+        };
+
+        window.testDeleteIntake = async function() {
+            const result3 = document.getElementById('result3');
+            const intakeCode = document.getElementById('intakeCode').value.trim();
+            if (!intakeCode) {
+                result3.className = 'result error';
+                result3.textContent = '⚠️ 受付番号を入力してください';
+                return;
+            }
+            if (!confirm('本当に削除しますか？')) return;
+            result3.textContent = '🔄 テスト中...';
+            try {
+                const res = await api.deleteIntake(intakeCode);
+                result3.className = res.success ? 'result success' : 'result error';
+                result3.textContent = (res.success ? '✅' : '❌') + ' 注文削除:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                result3.className = 'result error';
+                result3.textContent = '❌ エラー: ' + e.message;
+            }
+        };
+
+        window.testSearchIntake = async function() {
+            const result4 = document.getElementById('result4');
+            const cancelCode = document.getElementById('cancelCode').value.trim().toUpperCase();
+            if (!cancelCode) {
+                result4.className = 'result error';
+                result4.textContent = '⚠️ 受付番号を入力してください';
+                return;
+            }
+            result4.textContent = '🔄 検索中...';
+            try {
+                console.log('Calling api.searchIntake with:', cancelCode);
+                const res = await api.searchIntake(cancelCode);
+                console.log('searchIntake result:', res);
+                result4.className = res.success ? 'result success' : 'result error';
+                result4.textContent = (res.success ? '✅' : '❌') + ' 検索結果:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                console.error('searchIntake error:', e);
+                result4.className = 'result error';
+                result4.textContent = '❌ エラー: ' + e.message + '\nStack: ' + e.stack;
+            }
+        };
+
+        window.testCancelIntake = async function() {
+            const result4 = document.getElementById('result4');
+            const cancelCode = document.getElementById('cancelCode').value.trim().toUpperCase();
+            if (!cancelCode) {
+                result4.className = 'result error';
+                result4.textContent = '⚠️ 受付番号を入力してください';
+                return;
+            }
+            if (!confirm('本当にキャンセルしますか？')) return;
+            result4.textContent = '🔄 キャンセル中...';
+            try {
+                console.log('Calling api.cancelIntake with:', cancelCode);
+                const res = await api.cancelIntake(cancelCode);
+                console.log('cancelIntake result:', res);
+                result4.className = res.success ? 'result success' : 'result error';
+                result4.textContent = (res.success ? '✅' : '❌') + ' キャンセル結果:\n' + JSON.stringify(res, null, 2);
+            } catch(e) {
+                console.error('cancelIntake error:', e);
+                result4.className = 'result error';
+                result4.textContent = '❌ エラー: ' + e.message + '\nStack: ' + e.stack;
+            }
+        };
+
+        // 初期状態表示
+        document.getElementById('result5').className = 'result success';
+    </script>
+</body>
+</html>

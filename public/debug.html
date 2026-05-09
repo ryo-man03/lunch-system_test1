@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デバッグ</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        h1 { color: #4ec9b0; }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            background: #2d2d30;
+            border-left: 4px solid #007acc;
+        }
+        .error { border-left-color: #f48771; }
+        .success { border-left-color: #4ec9b0; }
+        pre { 
+            background: #252526; 
+            padding: 10px; 
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 システムデバッグ</h1>
+    <div id="output"></div>
+
+    <script type="module">
+        const output = document.getElementById('output');
+        
+        function log(message, type = 'status') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = message;
+            output.appendChild(div);
+        }
+
+        log('✅ HTML読み込み完了', 'success');
+
+        // 1. CSSテスト
+        try {
+            log('📦 CSS読み込みテスト...');
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/css/style.css';
+            link.onload = () => log('✅ CSS読み込み成功', 'success');
+            link.onerror = () => log('❌ CSS読み込み失敗', 'error');
+            document.head.appendChild(link);
+        } catch (e) {
+            log(`❌ CSSエラー: ${e.message}`, 'error');
+        }
+
+        // 2. APIテスト
+        try {
+            log('📡 APIモジュール読み込みテスト...');
+            const { ApiClient } = await import('./js/api.js');
+            log('✅ APIモジュール読み込み成功', 'success');
+            
+            const api = new ApiClient();
+            log('✅ ApiClientインスタンス化成功', 'success');
+            
+            log('📡 セッションチェック...');
+            const session = await api.checkSession();
+            log(`✅ セッションチェック成功<pre>${JSON.stringify(session, null, 2)}</pre>`, 'success');
+        } catch (e) {
+            log(`❌ APIエラー: ${e.message}<pre>${e.stack}</pre>`, 'error');
+        }
+
+        // 3. 各モジュールテスト
+        const modules = ['auth', 'admin', 'user'];
+        for (const mod of modules) {
+            try {
+                log(`📦 ${mod}.js読み込みテスト...`);
+                await import(`./js/${mod}.js`);
+                log(`✅ ${mod}.js読み込み成功`, 'success');
+            } catch (e) {
+                log(`❌ ${mod}.jsエラー: ${e.message}<pre>${e.stack}</pre>`, 'error');
+            }
+        }
+
+        // 4. メインアプリテスト
+        try {
+            log('🚀 main.js読み込みテスト...');
+            const { LunchApp } = await import('./js/main.js');
+            log('✅ main.js読み込み成功', 'success');
+        } catch (e) {
+            log(`❌ main.jsエラー: ${e.message}<pre>${e.stack}</pre>`, 'error');
+        }
+
+        // 5. グローバルappチェック
+        setTimeout(() => {
+            if (window.app) {
+                log('✅ window.appが存在します', 'success');
+                log(`<pre>currentView: ${window.app.currentView}\ncurrentUser: ${JSON.stringify(window.app.currentUser, null, 2)}</pre>`);
+            } else {
+                log('❌ window.appが存在しません', 'error');
+            }
+        }, 1000);
+
+        // 6. DOMチェック
+        log('🔍 DOM要素チェック...');
+        setTimeout(() => {
+            const appDiv = document.getElementById('app');
+            if (appDiv) {
+                log(`✅ #app要素が存在<pre>innerHTML length: ${appDiv.innerHTML.length}</pre>`, 'success');
+            } else {
+                log('❌ #app要素が見つかりません', 'error');
+            }
+        }, 1500);
+    </script>
+</body>
+</html>

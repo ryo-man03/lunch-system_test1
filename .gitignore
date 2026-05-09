@@ -1,0 +1,25 @@
+# データファイル
+data/database.json
+data/backups/
+
+# ログファイル
+*.log
+npm-debug.log*
+
+# Node modules
+node_modules/
+
+# OS固有ファイル
+.DS_Store
+Thumbs.db
+
+# エディタ設定
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 一時ファイル
+tmp/
+temp/

@@ -1,0 +1,820 @@
+{
+  "admins": [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "name": "管理者",
+      "approved": true,
+      "registeredAt": "2025-12-09T00:00:00.000Z"
+    }
+  ],
+  "pending_admins": [],
+  "stores": [
+    {
+      "id": "S001",
+      "name": "○○弁当",
+      "active": true,
+      "contactPhone": "080-1234-5678",
+      "address": "東京都千代田区1-1-1",
+      "businessHours": "10:00-20:00",
+      "description": "手作り弁当と家庭的な味が自慢の老舗店。",
+      "image": "/images/store1.jpg"
+    },
+    {
+      "id": "S002",
+      "name": "△△食堂",
+      "active": true,
+      "contactPhone": "080-2345-6789",
+      "address": "東京都新宿区2-2-2",
+      "businessHours": "11:00-21:00",
+      "description": "ボリューム満点の定食とカレーが人気。",
+      "image": "/images/store2.jpg"
+    },
+    {
+      "id": "S003",
+      "name": "××亭",
+      "active": true,
+      "contactPhone": "080-3456-7890",
+      "address": "東京都渋谷区3-3-3",
+      "businessHours": "9:00-19:00",
+      "description": "丼ものと和食が豊富な昔ながらの食堂。",
+      "image": "/images/store3.jpg"
+    }
+  ],
+  "menu_items": [
+    {
+      "id": "M001",
+      "storeId": "S001",
+      "name": "唐揚げ弁当",
+      "price": 650,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "特製ダレで漬け込んだ唐揚げとふっくらご飯の人気弁当。",
+      "image": "/images/karaage.jpg",
+      "category": "和食",
+      "allergens": [
+        "卵",
+        "小麦",
+        "大豆"
+      ]
+    },
+    {
+      "id": "M002",
+      "storeId": "S001",
+      "name": "のり弁当",
+      "price": 500,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "シンプルながら旨味たっぷりののり弁当。",
+      "image": "/images/nori_bento.jpg",
+      "category": "和食",
+      "allergens": [
+        "魚介",
+        "小麦"
+      ]
+    },
+    {
+      "id": "M003",
+      "storeId": "S001",
+      "name": "ハンバーグ弁当",
+      "price": 700,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "ジューシーなハンバーグと彩り豊かな副菜のバランス弁当。",
+      "image": "/images/hanburg_bento.jpg",
+      "category": "洋食",
+      "allergens": [
+        "卵",
+        "乳",
+        "小麦"
+      ]
+    },
+    {
+      "id": "M004",
+      "storeId": "S002",
+      "name": "日替わり定食",
+      "price": 600,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "その日のおすすめを詰め込んだお得な定食。",
+      "image": "/images/daily_special.jpg",
+      "category": "和食",
+      "allergens": []
+    },
+    {
+      "id": "M005",
+      "storeId": "S002",
+      "name": "カレーライス",
+      "price": 550,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "スパイシーでコクのある自家製カレー。",
+      "image": "/images/curry_rice.jpg",
+      "category": "アジア料理",
+      "allergens": [
+        "小麦",
+        "乳"
+      ]
+    },
+    {
+      "id": "M006",
+      "storeId": "S003",
+      "name": "カツ丼",
+      "price": 700,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "サクサクのとんかつと甘辛いタレが絶妙なカツ丼。",
+      "image": "/images/katsu_don.jpg",
+      "category": "和食",
+      "allergens": [
+        "卵",
+        "小麦",
+        "大豆"
+      ]
+    },
+    {
+      "id": "M007",
+      "storeId": "S003",
+      "name": "親子丼",
+      "price": 600,
+      "originalPrice": null,
+      "active": true,
+      "unavailableDates": [],
+      "unavailableDateRanges": [],
+      "unavailableWeekdays": [],
+      "unavailableTimeRanges": [],
+      "closedMessage": null,
+      "description": "新鮮な鶏肉と卵を使用したふわとろ親子丼。",
+      "image": "/images/oyako_don.jpg",
+      "category": "和食",
+      "allergens": [
+        "卵",
+        "小麦"
+      ]
+    }
+  ],
+  "intakes": [],
+  "orders": [
+    {
+      "orderId": "O-0001",
+      "userId": "U001",
+      "intakeCode": "R-0001",
+      "items": [
+        {
+          "id": "M002",
+          "storeId": "S001",
+          "name": "のり弁当",
+          "price": 500,
+          "originalPrice": null,
+          "active": true,
+          "unavailableDates": [],
+          "unavailableDateRanges": [],
+          "unavailableWeekdays": [],
+          "unavailableTimeRanges": [],
+          "closedMessage": null,
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 1000,
+      "status": "PENDING",
+      "orderedAt": "2025-12-16T10:00:00.000Z",
+      "pickupDate": "2025-12-16",
+      "orderCode": "R-0001",
+      "createdAt": "2025-12-15T08:20:45.048Z"
+    },
+    {
+      "orderId": "O-0002",
+      "userId": "U001",
+      "intakeCode": "R-0002",
+      "items": [
+        {
+          "id": "M002",
+          "storeId": "S001",
+          "name": "のり弁当",
+          "price": 500,
+          "originalPrice": null,
+          "active": true,
+          "unavailableDates": [],
+          "unavailableDateRanges": [],
+          "unavailableWeekdays": [],
+          "unavailableTimeRanges": [],
+          "closedMessage": null,
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 1000,
+      "status": "PAID",
+      "orderedAt": "2025-12-17T09:30:00.000Z",
+      "pickupDate": "2025-12-16",
+      "orderCode": "R-0002",
+      "createdAt": "2025-12-15T08:20:46.141Z"
+    },
+    {
+      "orderId": "O-0003",
+      "userId": "U001",
+      "intakeCode": "R-0003",
+      "items": [
+        {
+          "id": "M001",
+          "menuId": "M001",
+          "name": "唐揚げ弁当",
+          "price": 650,
+          "storeId": "S001",
+          "image": "/images/karaage.jpg",
+          "description": "特製ダレで漬け込んだ唐揚げとふっくらご飯の人気弁当。",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 650,
+      "status": "CANCELLED",
+      "orderedAt": "2025-12-18T08:00:00.000Z",
+      "pickupDate": "2026-02-17",
+      "orderCode": "R-0003",
+      "createdAt": "2026-02-15T16:38:24.477Z",
+      "cancelledAt": "2026-02-15T16:39:09.032Z"
+    },
+    {
+      "orderCode": "R-0004",
+      "items": [
+        {
+          "id": "M001",
+          "menuId": "M001",
+          "name": "唐揚げ弁当",
+          "price": 650,
+          "storeId": "S001",
+          "image": "/images/karaage.jpg",
+          "description": "特製ダレで漬け込んだ唐揚げとふっくらご飯の人気弁当。",
+          "quantity": 1
+        }
+      ],
+      "pickupDate": "2026-02-19",
+      "totalAmount": 650,
+      "status": "CANCELLED",
+      "createdAt": "2026-02-15T16:42:05.129Z",
+      "paidAt": null,
+      "pickedAt": null,
+      "cancelledAt": "2026-02-15T16:42:51.951Z",
+      "paymentMethod": null,
+      "userId": null
+    },
+    {
+      "orderCode": "R-0005",
+      "items": [
+        {
+          "id": "M001",
+          "menuId": "M001",
+          "name": "唐揚げ弁当",
+          "price": 650,
+          "storeId": "S001",
+          "image": "/images/karaage.jpg",
+          "description": "特製ダレで漬け込んだ唐揚げとふっくらご飯の人気弁当。",
+          "quantity": 1
+        }
+      ],
+      "pickupDate": "2026-02-18",
+      "totalAmount": 650,
+      "status": "PENDING",
+      "createdAt": "2026-02-15T16:45:23.405Z",
+      "paidAt": null,
+      "pickedAt": null,
+      "cancelledAt": null,
+      "paymentMethod": null,
+      "userId": null
+    },
+    {
+      "orderCode": "R-260216-Lor",
+      "items": [
+        {
+          "id": "M005",
+          "menuId": "M005",
+          "name": "カレーライス",
+          "price": 550,
+          "storeId": "S002",
+          "image": "/images/curry_rice.jpg",
+          "description": "スパイシーでコクのある自家製カレー。",
+          "quantity": 1
+        },
+        {
+          "id": "M007",
+          "menuId": "M007",
+          "name": "親子丼",
+          "price": 600,
+          "storeId": "S003",
+          "image": "/images/oyako_don.jpg",
+          "description": "新鮮な鶏肉と卵を使用したふわとろ親子丼。",
+          "quantity": 1
+        }
+      ],
+      "pickupDate": "2026-02-17",
+      "totalAmount": 1150,
+      "status": "PENDING",
+      "createdAt": "2026-02-15T16:59:57.387Z",
+      "paidAt": null,
+      "pickedAt": null,
+      "cancelledAt": null,
+      "paymentMethod": null,
+      "userId": null
+    },
+    {
+      "orderCode": "R-260216-wdy",
+      "items": [
+        {
+          "id": "M003",
+          "menuId": "M003",
+          "name": "ハンバーグ弁当",
+          "price": 700,
+          "storeId": "S001",
+          "image": "/images/hanburg_bento.jpg",
+          "description": "ジューシーなハンバーグと彩り豊かな副菜のバランス弁当。",
+          "quantity": 1
+        }
+      ],
+      "pickupDate": "2026-02-17",
+      "totalAmount": 700,
+      "status": "PENDING",
+      "createdAt": "2026-02-15T19:37:41.204Z",
+      "paidAt": null,
+      "pickedAt": null,
+      "cancelledAt": null,
+      "paymentMethod": null,
+      "userId": null
+    },
+    {
+      "orderCode": "R-260216-NbF",
+      "items": [
+        {
+          "id": "M002",
+          "menuId": "M002",
+          "name": "のり弁当",
+          "price": 500,
+          "storeId": "S001",
+          "image": "/images/nori_bento.jpg",
+          "description": "シンプルながら旨味たっぷりののり弁当。",
+          "quantity": 1
+        }
+      ],
+      "pickupDate": "2026-02-16",
+      "totalAmount": 500,
+      "status": "PENDING",
+      "createdAt": "2026-02-15T19:49:04.521Z",
+      "paidAt": null,
+      "pickedAt": null,
+      "cancelledAt": null,
+      "paymentMethod": null,
+      "userId": null
+    }
+  ],
+  "business_hours": {
+    "orderDeadline": 1,
+    "counter": {
+      "start": "14:00",
+      "end": "18:00"
+    },
+    "pickup": {
+      "start": "11:30",
+      "end": "13:30"
+    },
+    "businessDays": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+    ]
+  },
+  "system_message": {
+    "enabled": false,
+    "type": "info",
+    "title": "",
+    "content": ""
+  },
+  "cancel_policy": {
+    "enabled": true,
+    "timeLimit": 30,
+    "beforePickupHours": 24
+  },
+  "special_days": [],
+  "coupons": [],
+  "vip_customers": [],
+  "priority_orders": [],
+  "special_discounts": [],
+  "special_cases": [],
+  "customer_notes": {},
+  "logs": [
+    {
+      "id": 30,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-260216-NbF",
+        "items": 1,
+        "totalAmount": 500
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T19:49:04.521Z"
+    },
+    {
+      "id": 29,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T19:48:36.234Z"
+    },
+    {
+      "id": 28,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T19:48:36.227Z"
+    },
+    {
+      "id": 27,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-260216-wdy",
+        "items": 1,
+        "totalAmount": 700
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T19:37:41.204Z"
+    },
+    {
+      "id": 26,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T19:34:59.856Z"
+    },
+    {
+      "id": 25,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T19:34:59.850Z"
+    },
+    {
+      "id": 24,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-260216-Lor",
+        "items": 2,
+        "totalAmount": 1150
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:59:57.387Z"
+    },
+    {
+      "id": 23,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T16:59:23.724Z"
+    },
+    {
+      "id": 22,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T16:59:23.718Z"
+    },
+    {
+      "id": 21,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-0005",
+        "items": 1,
+        "totalAmount": 650
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:45:23.405Z"
+    },
+    {
+      "id": 20,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T16:43:06.400Z"
+    },
+    {
+      "id": 19,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2026-02-15T16:43:06.396Z"
+    },
+    {
+      "id": 18,
+      "type": "order",
+      "action": "cancel",
+      "details": {
+        "intakeCode": "R-0004"
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:42:51.951Z"
+    },
+    {
+      "id": 17,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-0004",
+        "items": 1,
+        "totalAmount": 650
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:42:05.129Z"
+    },
+    {
+      "id": 16,
+      "type": "order",
+      "action": "cancel",
+      "details": {
+        "intakeCode": "R-0003"
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:39:09.032Z"
+    },
+    {
+      "id": 15,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-0003",
+        "items": 1,
+        "totalAmount": 650
+      },
+      "adminEmail": null,
+      "timestamp": "2026-02-15T16:38:24.477Z"
+    },
+    {
+      "id": 14,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-0002",
+        "items": 1,
+        "totalAmount": 0
+      },
+      "adminEmail": null,
+      "timestamp": "2025-12-15T08:20:46.142Z"
+    },
+    {
+      "id": 13,
+      "type": "order",
+      "action": "create",
+      "details": {
+        "intakeCode": "R-0001",
+        "items": 1,
+        "totalAmount": 0
+      },
+      "adminEmail": null,
+      "timestamp": "2025-12-15T08:20:45.050Z"
+    },
+    {
+      "id": 12,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:12:10.436Z"
+    },
+    {
+      "id": 11,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:12:10.408Z"
+    },
+    {
+      "id": 10,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:10:13.459Z"
+    },
+    {
+      "id": 9,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:10:13.447Z"
+    },
+    {
+      "id": 8,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:05:32.430Z"
+    },
+    {
+      "id": 7,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T08:05:32.415Z"
+    },
+    {
+      "id": 6,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T06:29:32.622Z"
+    },
+    {
+      "id": 5,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T06:29:32.612Z"
+    },
+    {
+      "id": 4,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T06:10:01.377Z"
+    },
+    {
+      "id": 3,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T06:10:01.370Z"
+    },
+    {
+      "id": 2,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T05:53:07.651Z"
+    },
+    {
+      "id": 1,
+      "type": "auth",
+      "action": "login",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "adminEmail": "admin@example.com",
+      "timestamp": "2025-12-15T05:53:07.643Z"
+    }
+  ],
+  "counters": {
+    "intake": 5,
+    "order": 5,
+    "log": 30,
+    "special_case": 0
+  },
+  "last_saved": "2025-12-09T08:40:35.734392",
+  "sessions": {},
+  "users": [
+    {
+      "id": "U001",
+      "name": "山田 太郎",
+      "email": "taro@example.com",
+      "phone": "080-0000-0000",
+      "registeredAt": "2025-12-18T00:00:00.000Z",
+      "isVip": false
+    }
+  ],
+  "inventory": {
+    "M001": {
+      "2026-02-17": {
+        "total": 999999,
+        "available": 999999,
+        "reserved": 0
+      },
+      "2026-02-19": {
+        "total": 999999,
+        "available": 999999,
+        "reserved": 0
+      },
+      "2026-02-18": {
+        "total": 999999,
+        "available": 999998,
+        "reserved": 1
+      }
+    },
+    "M005": {
+      "2026-02-17": {
+        "total": 999999,
+        "available": 999998,
+        "reserved": 1
+      }
+    },
+    "M007": {
+      "2026-02-17": {
+        "total": 999999,
+        "available": 999998,
+        "reserved": 1
+      }
+    },
+    "M003": {
+      "2026-02-17": {
+        "total": 999999,
+        "available": 999998,
+        "reserved": 1
+      }
+    },
+    "M002": {
+      "2026-02-16": {
+        "total": 999999,
+        "available": 999998,
+        "reserved": 1
+      }
+    }
+  },
+  "favorites": {},
+  "reviews": [],
+  "notifications": []
+}
